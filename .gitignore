@@ -1,0 +1,16 @@
+# --- PoC artifacts ---
+.env
+*.tfstate
+*.tfstate.backup
+.terraform/
+.terraform.lock.hcl
+
+# --- Vendored / built docs ---
+vendor/
+_build/
+
+# --- Python ---
+__pycache__/
+*.pyc
+.venv/
+.pytest_cache/

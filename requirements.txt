@@ -1,0 +1,19 @@
+# Dependencies for the OpenSearch-backed Sphinx search PoC.
+#
+# Install with:  pip install -r requirements.txt
+# (use a virtualenv — see bootstrap-env.sh / build-docs.sh for the docs venv)
+
+# --- Ingestion (indexer.py) ---
+opensearch-py>=2.4,<3.0          # OpenSearch Python client
+beautifulsoup4>=4.12             # HTML stripping from .fjson body fields
+
+# --- Middleware proxy (app.py) ---
+fastapi>=0.110
+uvicorn[standard]>=0.29
+python-dotenv>=1.0               # load .env (OpenSearch creds)
+
+# --- Testing (tests/) ---
+requests>=2.31                   # backend integration assertions
+pytest>=8.0
+pytest-playwright>=0.5           # Playwright pytest plugin (provides `browser` fixture)
+playwright>=1.40                 # frontend validation
