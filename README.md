@@ -10,6 +10,11 @@ browser.
 See [`ARCHITECTURE.md`](ARCHITECTURE.md) for the Mermaid diagram and flow
 summary. Bill of materials: [`BOM.md`](BOM.md).
 
+## Deployment
+
+For a full step-by-step guide to deploying in a Multipass VM and accessing
+the Docs UI from the host laptop, see [`DEPLOYMENT.md`](DEPLOYMENT.md).
+
 ## Quick start
 
 ```bash
