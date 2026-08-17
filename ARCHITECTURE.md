@@ -35,10 +35,12 @@ flowchart TB
         Browser["Browser<br/>Sphinx dirhtml UI"]
         FastAPI["FastAPI app.py<br/>:8000"]
         API["/api/search?q=..."]
-        Browser -->|search form submit| API
+        Content["<article id='furo-main-content'><br/>results replace page content"]
+        Browser -->|sidebar search form submit| API
         API --> FastAPI
         FastAPI -->|multi_match query| OSIndex
-        FastAPI -->|JSON results| Browser
+        FastAPI -->|JSON results| Content
+        Content -->|× or Esc restores| Browser
         FastAPI -->|serve static files| BuildHTML
     end
 
@@ -52,7 +54,7 @@ flowchart TB
 
 1. **IaaC** — `bootstrap-env.sh` tunes the host and bootstraps LXD + Juju; `terraform apply` deploys OpenSearch, self-signed-certificates, and data-integrator, then `fetch-credentials.sh` extracts credentials to `.env`.
 2. **Ingestion** — `build-docs.sh` clones the Kafka Operator docs, builds them in JSON and dirhtml formats, and `indexer.py` bulk-loads the `.fjson` content into the `sphinx-docs` OpenSearch index.
-3. **Web** — `app.py` (FastAPI) serves the dirhtml build at `/` and exposes `/api/search`, which queries OpenSearch with a `multi_match` on `title^3, body`. The injected `custom_search.js` intercepts the sidebar search form and renders results as `.opensearch-result-item` nodes.
+3. **Web** — `app.py` (FastAPI) serves the dirhtml build at `/` and exposes `/api/search`, which queries OpenSearch with a `multi_match` on `title^3, body`. The injected `custom_search.js` intercepts the sidebar search form, sends the query to `/api/search`, and renders results in the **main content area** (`<article id="furo-main-content">`) — replacing the page's content with a results list. The sidebar nav menu stays visible. Clicking **×** or pressing **Esc** restores the original page content.
 
 ## Security boundary
 

@@ -296,7 +296,10 @@ http://<VM_IP>:8000
 You'll see the Charmed Apache Kafka documentation with the sidebar search box.
 Type a query (e.g. `broker`, `tls`, `connect`) and press Enter — the custom
 JavaScript intercepts the form submission, calls `/api/search`, and renders
-OpenSearch results as `.opensearch-result-item` nodes.
+OpenSearch results in the **main content area** (replacing the page's content
+with a results list). The sidebar nav menu stays visible and usable. Click the
+**×** button in the results header or press **Esc** to restore the original
+page content.
 
 ### Test the API from the host terminal
 

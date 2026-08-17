@@ -51,6 +51,15 @@ pytest tests/ -v
   box, captures the `/api/search?q=broker` network request, and asserts
   `.opensearch-result-item` nodes appear in the DOM.
 
+## Search UX
+
+The sidebar search form is intercepted by `custom_search.js`. On submit, the
+query is sent to `/api/search` and results render in the **main content area**
+(`<article id="furo-main-content">`), replacing the page's content with a
+results list. The sidebar nav menu stays visible and usable. Click the **×**
+button in the results header or press **Esc** to restore the original page
+content.
+
 ## Layout
 
 ```
@@ -61,7 +70,8 @@ scripts/
   build-docs.sh           Clone kafka-operator, build JSON + dirhtml
 indexer.py                .fjson → OpenSearch bulk insert
 app.py                    FastAPI: serve dirhtml + /api/search
-static/custom_search.js   Injected into Sphinx; intercepts the search form
+static/custom_search.js   Injected into Sphinx; intercepts the search form,
+                          renders results in the main content area
 tests/                    Backend + negation + Playwright suites
 BOM.md  ARCHITECTURE.md   Handover deliverables
 ```
